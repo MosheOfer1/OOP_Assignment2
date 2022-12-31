@@ -1,7 +1,9 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-
+/**
+ * A thread class that counts the number of lines in a text file.
+ */
 public class LineCounterThread extends Thread {
     // The file name to be processed by this thread
     private String fileName;

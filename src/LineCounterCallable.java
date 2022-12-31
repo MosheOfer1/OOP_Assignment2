@@ -2,7 +2,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.concurrent.Callable;
-
+/**
+ * A callable class that counts the number of lines in a text file.
+ */
 public class LineCounterCallable implements Callable<Integer> {
     // The file name to be processed by this callable
     private String fileName;
