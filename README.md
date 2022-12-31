@@ -134,5 +134,5 @@ In general, using a thread pool is a good choice for concurrent processing when 
 </table>
 
 The table above shows the run times of our local experiment for counting the number of lines in a specific set of text files.
-The run times may vary depending on the implementation of the methods, the resources available on the machine running the code, and other factors.
+The run times may vary depending on the resources available on the machine running the code,the input data, and other factors.
 
