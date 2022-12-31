@@ -22,37 +22,38 @@ Using a thread pool allows the files to be processed concurrently while minimizi
 ### Conclusions
 In general, using a thread pool is a good choice for concurrent processing when you have a large number of tasks to be processed. It allows you to take advantage of concurrent processing while minimizing the overhead of managing multiple threads. However, for small numbers of tasks, the overhead of creating a thread pool may outweigh the benefits of concurrent processing. In such cases, using separate threads or processing the tasks sequentially may be more efficient.
 
-In the case of counting the number of lines in a set of text files, the choice of method will depend on the number and size of the files, as well as the resources available on the machine running the code. It is recommended to measure the run times of the different methods and choose the one that provides the best performance for your specific use case.
 
 <table>
   <tr>
     <th>Method</th>
     <th>Run Time (ms)</th>
-    <th>Seed Bound</th>
+    <th>Seed, Bound</th>
     <th>Num of Files</th>
     <th>Total Num of Lines</th>
   </tr>
   <tr>
     <td>getNumOfLines</td>
     <td>3735</td>
-    <td>2</td>
+    <td>2, 1500</td>
     <td>1000</td>
     <td>733592</td>
   </tr>
-  <tr style="color:red">
+  <tr style="color:#ff0000">
     <td>getNumOfLinesThreads</td>
     <td>148</td>
-    <td>2</td>
+    <td>2, 1500</td>
     <td>1000</td>
     <td>733592</td>
   </tr>
   <tr>
     <td>getNumOfLinesThreadPool</td>
     <td>280</td>
-    <td>2</td>
+    <td>2, 1500</td>
     <td>1000</td>
     <td>733592</td>
   </tr>
 </table>
 
+The table above shows the run times of our local experiment for counting the number of lines in a specific set of text files.
+The run times may vary depending on the implementation of the methods, the resources available on the machine running the code, and other factors.
 
