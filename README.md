@@ -18,6 +18,85 @@ The getNumOfLinesThreadPool method uses a thread pool to process the files concu
 Finally, it shuts down the thread pool and waits for all the tasks to complete by calling the awaitTermination method. It then returns the total number of lines counted by all the tasks.
 
 Using a thread pool allows the files to be processed concurrently while minimizing the overhead of managing multiple threads. However, creating a thread pool requires some setup and may involve additional overhead compared to using separate threads.
+## Class diagram
+<div style="display: flex; flex-wrap: wrap; width: 600px">
+  <table style="width: 200px">
+    <tr>
+      <th>Class</th>
+      <td>LineCounterThread</td>
+    </tr>
+    <tr>
+      <th>Attributes</th>
+      <td>
+        <ul>
+          <li>String fileName</li>
+          <li>int numLines</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <th>Methods</th>
+      <td>
+        <ul>
+          <li>+ LineCounterThread(String)</li>
+          <li>+ void run()</li>
+          <li>+ int getNumLines()</li>
+        </ul>
+      </td>
+    </tr>
+  </table>
+
+  <table style="width: 200px">
+    <tr>
+      <th>Class</th>
+      <td>LineCounterCallable</td>
+    </tr>
+    <tr>
+      <th>Attributes</th>
+      <td>
+        <ul>
+          <li>String fileName</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <th>Methods</th>
+      <td>
+        <ul>
+          <li>+ LineCounterCallable(String)</li>
+          <li>+ Integer call()</li>
+        </ul>
+      </td>
+    </tr>
+  </table>
+
+<table style="width: 200px">
+  <tr>
+    <th>Class</th>
+    <td>LineCounter</td>
+  </tr>
+  <tr>
+    <th>Attributes</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>Methods</th>
+    <td>
+      <ul>
+        <li>static int getNumOfLines(String[])</li>
+        <li>static int getNumOfLinesThreads(String[])</li>
+        <li>static int getNumOfLinesThreadPool(String[])</li>
+      </ul>
+    </td>
+  </tr>
+</table>
+
+</div>
+
+
+
+
+
 
 ### Conclusions
 In general, using a thread pool is a good choice for concurrent processing when you have a large number of tasks to be processed. It allows you to take advantage of concurrent processing while minimizing the overhead of managing multiple threads. However, for small numbers of tasks, the overhead of creating a thread pool may outweigh the benefits of concurrent processing. In such cases, using separate threads or processing the tasks sequentially may be more efficient.
