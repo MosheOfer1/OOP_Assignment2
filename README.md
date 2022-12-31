@@ -19,8 +19,8 @@ Finally, it shuts down the thread pool and waits for all the tasks to complete b
 
 Using a thread pool allows the files to be processed concurrently while minimizing the overhead of managing multiple threads. However, creating a thread pool requires some setup and may involve additional overhead compared to using separate threads.
 ## Class diagram
-<div style="display: flex; flex-wrap: wrap; width: 600px">
-  <table style="width: 200px">
+<div style="display: flex; flex-wrap: wrap; width: 800px">
+  <table style="width: 400px">
     <tr>
       <th>Class</th>
       <td>LineCounterThread</td>
@@ -46,7 +46,7 @@ Using a thread pool allows the files to be processed concurrently while minimizi
     </tr>
   </table>
 
-  <table style="width: 200px">
+  <table style="width: 400px">
     <tr>
       <th>Class</th>
       <td>LineCounterCallable</td>
@@ -70,7 +70,7 @@ Using a thread pool allows the files to be processed concurrently while minimizi
     </tr>
   </table>
 
-<table style="width: 200px">
+<table style="width: 400px">
   <tr>
     <th>Class</th>
     <td>LineCounter</td>

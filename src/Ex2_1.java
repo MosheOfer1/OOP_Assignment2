@@ -110,13 +110,16 @@ public class Ex2_1 {
         // Create a fixed-size thread pool with a thread for each file
         ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(fileNames.length);
         LineCounterCallable[] tasks = new LineCounterCallable[fileNames.length];
+        Future<Integer>[] results = new Future[fileNames.length];
         for (int i = 0; i < fileNames.length; i++) {
             tasks[i] = new LineCounterCallable(fileNames[i]);
         }
         try {
             // Invoke all the tasks and wait for them to complete
             for (int i = 0; i < fileNames.length; i++) {
-                Future<Integer> result = executor.submit(tasks[i]);
+                results[i] = executor.submit(tasks[i]);
+            }
+            for (Future<Integer> result :results){
                 numLines += result.get();
             }
         } catch (InterruptedException | ExecutionException e) {
