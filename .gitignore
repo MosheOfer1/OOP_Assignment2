@@ -1,0 +1,8 @@
+# Ignore temporary files
+
+*.iml
+
+
+# Ignore node_modules directory
+out/
+/.idea
