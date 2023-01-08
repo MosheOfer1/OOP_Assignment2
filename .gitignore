@@ -4,6 +4,7 @@
 
 
 # Ignore node_modules directory
+/target
 out/
 /.idea
-target/
+
