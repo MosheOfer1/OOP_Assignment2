@@ -12,7 +12,7 @@ public class Ex2_1 {
      */
     public static void main(String[] args) {
         // The file names to be compared from createTextFiles()
-        String[] fileNames = createTextFiles(1000,2,1500);
+        String[] fileNames = createTextFiles(100,2,1500);
         long startTime, endTime;
 
         // Measure the run time of getNumOfLines
@@ -76,20 +76,26 @@ public class Ex2_1 {
     public static int getNumOfLines(String[] fileNames) {
         int numLines = 0;
         for (String fileName : fileNames) {
-            if (fileName.endsWith(".txt")) {
-                try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-                    while (reader.readLine() != null) {
-                        numLines++;
-                    }
-                } catch (IOException e) {
-                    // handle exception
-                    System.out.println("An error occurred.");
-                    e.printStackTrace();
+            numLines = getNumLines(numLines, fileName);
+        }
+        return numLines;
+    }
+
+    public static int getNumLines(int numLines, String fileName) {
+        if (fileName.endsWith(".txt")) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+                while (reader.readLine() != null) {
+                    numLines++;
                 }
+            } catch (IOException e) {
+                // handle exception
+                System.out.println("An error occurred.");
+                e.printStackTrace();
             }
         }
         return numLines;
     }
+
     /**
      * Returns the sum of lines in all the txt files given the names of the files,
      * using a separate thread for each file.

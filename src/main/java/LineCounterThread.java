@@ -35,16 +35,6 @@ public class LineCounterThread extends Thread {
      */
     @Override
     public void run() {
-        if (fileName.endsWith(".txt")) {
-            try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-                while (reader.readLine() != null) {
-                    numLines++;
-                }
-            } catch (IOException e) {
-                // handle exception
-                System.out.println("An error occurred.");
-                e.printStackTrace();
-            }
-        }
+        numLines = Ex2_1.getNumLines(numLines, fileName);
     }
 }

@@ -27,17 +27,7 @@ public class LineCounterCallable implements Callable<Integer> {
     @Override
     public Integer call() {
         int numLines = 0;
-        if (fileName.endsWith(".txt")) {
-            try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-                while (reader.readLine() != null) {
-                    numLines++;
-                }
-            } catch (IOException e) {
-                // handle exception
-                System.out.println("An error occurred.");
-                e.printStackTrace();
-            }
-        }
+        numLines = Ex2_1.getNumLines(numLines, fileName);
         return numLines;
     }
 }
