@@ -1,5 +1,5 @@
-# OOP_Assignment2 - Line Counter
-This project contains three methods for counting the number of lines in a set of text files: 
+# OOP_Assignment2 Part 1 - Line Counter
+This part contains three methods for counting the number of lines in a set of text files: 
 - getNumOfLines 
 - getNumOfLinesThreads
 - getNumOfLinesThreadPool.
@@ -19,6 +19,8 @@ Finally, it shuts down the thread pool and waits for all the tasks to complete b
 
 Using a thread pool allows the files to be processed concurrently while minimizing the overhead of managing multiple threads. However, creating a thread pool requires some setup and may involve additional overhead compared to using separate threads.
 ## Class diagram
+![OOP_Assignment2](https://user-images.githubusercontent.com/107894139/211216831-3562525f-10c8-4e2f-958f-e77c5df05a60.png)
+
 <div style="display: flex; flex-wrap: wrap; width: 1300px">
   <table style="width: 400px">
     <tr>
@@ -136,3 +138,12 @@ In general, using a thread pool is a good choice for concurrent processing when 
 The table above shows the run times of our local experiment for counting the number of lines in a specific set of text files.
 The run times may vary depending on the resources available on the machine running the code,the input data, and other factors.
 
+# OOP_Assignment2 Part 2 - ThreadPool
+In order to create an option to control the priority of tasks in a threadPool in java, we created 
+* The Task class that represent a Callable task that return a value and may throw an Exception, wite a priority enum.
+* the CustomExecutor that control as Threadpool Executor with the option to control the priority of all tasks.
+## Task
+This is a generic Task class that represents a task with a type that returns a result and may throw an exception. Each task has a priority used for scheduling, based on the TaskType enum. Has the option to be compared with the public int compareTo(@NotNull T o) method
+## CustomExecutor
+This is a custom thread pool class that defines methods for submitting tasks to a priority queue.
+The queue is a PriorityBlockingQueue object that stores the tasks in the priority queue. The queue is sorted according to the not natural ordering of the tasks or by the TaskType comparator.
