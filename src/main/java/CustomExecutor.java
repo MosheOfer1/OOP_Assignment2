@@ -7,7 +7,9 @@ import java.util.concurrent.*;
 public class CustomExecutor{
 
     private final ThreadPoolExecutor executor;
+    private int max;
     public CustomExecutor() {
+        this.max = 10;
         int processors = Runtime.getRuntime().availableProcessors();
         BlockingQueue queue = new PriorityBlockingQueue<>(10, Comparator.reverseOrder());
         this.executor = new ThreadPoolExecutor(processors/2,processors-1,
@@ -16,7 +18,9 @@ public class CustomExecutor{
     public <T> Future<T> submit(Callable<T> callable) {
        //Creating a Task instance if needed
         if (!(callable instanceof Task))
-            callable = new Task(callable);
+            callable = new Task<>(callable);
+        if (this.max > ((Task<?>)callable).getPriority())
+            this.max = ((Task<?>)callable).getPriority();
         return executor.submit(callable);
     }
    public <T> Future<T> submit(Callable<T> callable,TaskType taskType) {
@@ -35,7 +39,6 @@ public class CustomExecutor{
     }
 
     public String getCurrentMax() {
-
-        return "haha";
+        return String.valueOf(this.max);
     }
 }

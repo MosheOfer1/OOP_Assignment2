@@ -10,7 +10,7 @@ public class Ex2_1 {
      * Compares the run times of the different methods for counting the number of lines in multiple text files.
      *
      */
-    public static void main(String[] args) {
+    public static void main(String[] args){
         // The file names to be compared from createTextFiles()
         String[] fileNames = createTextFiles(100,2,1500);
         long startTime, endTime;
