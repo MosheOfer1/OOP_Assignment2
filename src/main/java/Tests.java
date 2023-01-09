@@ -1,8 +1,7 @@
 import org.junit.Test;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
+
+import java.util.concurrent.*;
+
 import org.junit.platform.commons.logging.Logger;
 import org.junit.platform.commons.logging.LoggerFactory;
 
@@ -49,6 +48,22 @@ public class Tests {
         logger.info(()-> "Reversed String = " + reversed);
         logger.info(()->String.valueOf("Total Price = " + totalPrice));
         logger.info(()-> "Current maximum priority = " + customExecutor.getCurrentMax());
+
+        Future<String>[] stringFuture = new Future[1000];
+        for (int i = 0; i < stringFuture.length; i++) {
+            stringFuture[i] = customExecutor.submit(callable2, TaskType.IO);
+        }
+        for (Future<String> future : stringFuture) {
+            String s = null;
+            try {
+                s = future.get();
+            } catch (InterruptedException | ExecutionException e) {
+                throw new RuntimeException(e);
+            }
+            String finalS = s;
+            logger.info(() -> finalS);
+
+        }
         customExecutor.gracefullyTerminate();
     }
 }
