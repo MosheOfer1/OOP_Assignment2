@@ -1,16 +1,13 @@
 package Part_2;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.Objects;
 import java.util.concurrent.Callable;
-import java.util.concurrent.FutureTask;
 
 /**
  * A generic task with a type that returns a result and may throw an exception.
  * Each task has a priority used for scheduling, based on the Part_2.TaskType enum.
  */
-public class Task<T> extends FutureTask<T> implements Callable<T>,Comparable<T>{
+public class Task<T> implements Callable<T>{
     private final Callable<T> task;
     private final TaskType priority;
 
@@ -21,7 +18,6 @@ public class Task<T> extends FutureTask<T> implements Callable<T>,Comparable<T>{
      * @param task the Callable representing the task
      */
     public Task(Callable<T> task) {
-        super(task);
         if(!(task instanceof Task<T>))
             this.priority = (TaskType.COMPUTATIONAL);
         else
@@ -36,7 +32,6 @@ public class Task<T> extends FutureTask<T> implements Callable<T>,Comparable<T>{
      * @param priority the priority of the task
      */
     public Task(Callable<T> task, TaskType priority) {
-        super(task);
         this.task = task;
         this.priority = priority;
     }
@@ -79,8 +74,4 @@ public class Task<T> extends FutureTask<T> implements Callable<T>,Comparable<T>{
         return priority.getPriorityValue();
     }
 
-    @Override
-    public int compareTo(@NotNull T o) {
-        return Integer.compare(((Task<?>) o).getPriority(),this.priority.getPriorityValue());
-    }
 }
