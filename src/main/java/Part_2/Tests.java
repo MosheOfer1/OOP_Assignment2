@@ -2,6 +2,7 @@ package Part_2;
 
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.concurrent.*;
 
 import org.junit.platform.commons.logging.Logger;
@@ -9,6 +10,57 @@ import org.junit.platform.commons.logging.LoggerFactory;
 
 public class Tests {
     public static final Logger logger = LoggerFactory.getLogger(Tests.class);
+
+    /**
+     * This test method creates a new instance of the CustomExecutor class and creates
+     * two Callable objects that simulate long-running tasks.
+     * The test then submits half of the tasks with a TaskType.OTHER priority,
+     * and the other half with a TaskType.COMPUTATIONAL priority.
+     * This test is checking that the CustomExecutor is able to schedule
+     * the task based on their priority with TaskType.OTHER being less important,
+     * and TaskType.COMPUTATIONAL more important, and this can be observed by
+     * checking the priority value of each element in the queue.
+     *
+     * In short the more important tasks overtook the lees important tasks!
+     */
+    @Test
+    public void testPriority(){
+        CustomExecutor customExecutor = new CustomExecutor();
+
+        Callable<String> callable1 = ()-> {
+            //simulating long task
+            Thread.sleep(1000);
+            StringBuilder sb = new StringBuilder("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+            return sb.reverse().toString();
+        };
+        Callable<Integer> callable2 = ()-> {
+            //simulating long task
+            Thread.sleep(1000);
+            int sum = 0;
+            for (int i = 1; i <= 10; i++) {
+                sum += i;
+            }
+            return sum;
+        };
+        // Create an array to store the Future of the tasks in a const size
+        Future<?>[] stringFuture = new Future[20];
+        for (int i = 0; i < stringFuture.length; i++) {
+            // Insert the less important tasks first
+            if (i <= stringFuture.length/2)
+                stringFuture[i] = customExecutor.submit(callable1, TaskType.OTHER);
+            // Insert the more important tasks in the end
+            else
+                stringFuture[i] = customExecutor.submit(callable2, TaskType.COMPUTATIONAL);
+        }
+        //log the priority of each task in the queue
+        for (int i = 0; i < customExecutor.getQueue().size(); i++) {
+            int finalI = i;
+            logger.info(()-> "The "+ finalI +"t'h element in the queue has priority of "+((Adapter<?>)customExecutor.getQueue().toArray()[finalI]).getPriority());
+        }
+        customExecutor.gracefullyTerminate();
+
+    }
+
     @Test
     public void partialTest(){
        CustomExecutor customExecutor = new CustomExecutor();
@@ -51,26 +103,7 @@ public class Tests {
         logger.info(()->String.valueOf("Total Price = " + totalPrice));
         logger.info(()-> "Current maximum priority = " + customExecutor.getCurrentMax());
 
-        Future<?>[] stringFuture = new Future[1000];
-        for (int i = 0; i < stringFuture.length; i=i+2) {
-            stringFuture[i] = customExecutor.submit(callable2, TaskType.IO);
-            stringFuture[i+1] = customExecutor.submit(task);
-        }
-        for (int i = 0; i < stringFuture.length; i=i+2) {
-            String s = null;
-            int x = 0;
-            try {
-                s = (String) stringFuture[i].get();
-                x = (int) stringFuture[i+1].get();
-            } catch (InterruptedException | ExecutionException e) {
-                throw new RuntimeException(e);
-            }
-            String finalS = s;
-            logger.info(() -> finalS);
-            int finalX = x;
-            logger.info(() -> String.valueOf(finalX));
-
-        }
         customExecutor.gracefullyTerminate();
     }
+
 }

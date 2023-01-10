@@ -19,6 +19,8 @@ public class CustomExecutor{
     }
     public <T> FutureTask<T> submit(Task<T> task){
         Adapter<T> adapter = new Adapter<>(task,task.getPriority());
+        if (this.max > task.getPriority())
+            this.max = task.getPriority();
         executor.execute(adapter);
         return adapter;
     }
@@ -35,10 +37,15 @@ public class CustomExecutor{
         try {
             // Wait for the queue to be empty
             while (!queue.isEmpty());
+            //System.out.println("finish!");
             executor.awaitTermination(300,TimeUnit.MILLISECONDS);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public BlockingQueue getQueue() {
+        return queue;
     }
 
     public String getCurrentMax() {
