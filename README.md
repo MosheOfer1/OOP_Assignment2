@@ -142,8 +142,16 @@ The run times may vary depending on the resources available on the machine runni
 In order to create an option to control the priority of tasks in a threadPool in java, we created 
 * The Part_2.Task class that represent a Callable task that return a value and may throw an Exception, wite a priority enum.
 * the Part_2.CustomExecutor that control as Threadpool Executor with the option to control the priority of all tasks.
-## Part_2.Task
-This is a generic Part_2.Task class that represents a task with a type that returns a result and may throw an exception. Each task has a priority used for scheduling, based on the Part_2.TaskType enum. Has the option to be compared with the public int compareTo(@NotNull T o) method
-## Part_2.CustomExecutor
+## Task
+This is a generic Task class that represents a task with a type that returns a result and may throw an exception. Each task has a priority used for scheduling, based on the TaskType enum. Has the option to be compared with the public int compareTo(@NotNull T o) method
+## CustomExecutor
 This is a custom thread pool class that defines methods for submitting tasks to a priority queue.
-The queue is a PriorityBlockingQueue object that stores the tasks in the priority queue. The queue is sorted according to the not natural ordering of the tasks or by the Part_2.TaskType comparator.
+The queue is a PriorityBlockingQueue object that stores the tasks in the priority queue. The queue is sorted according to the not natural ordering of the tasks or by the TaskType comparator.
+## Adapter
+The Adapter class, extends the FutureTask class, and implements the Comparable interface. The main purpose of this class is to allow the Task objects, which are passed to the submit method of the CustomExecutor class, to be used as elements in the priority queue that is used by the thread pool.
+
+The Adapter class has a single constructor, which takes a Callable object, and wraps it in a Task object, and assigns the taskType to priority. The getPriority method returns the priority of the task, which is set during the instantiation of the Adapter object.
+
+The compareTo method is used to compare Adapter objects based on their priority.
+
+This class wraps the task object and implements the compareTo method to allow the task object to be added to the PriorityBlockingQueue and be sorted based on their priority.
