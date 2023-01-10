@@ -140,10 +140,18 @@ The run times may vary depending on the resources available on the machine runni
 
 # OOP_Assignment2 Part 2 - ThreadPool
 In order to create an option to control the priority of tasks in a threadPool in java, we created 
-* The Part_2.Task class that represent a Callable task that return a value and may throw an Exception, wite a priority enum.
-* the Part_2.CustomExecutor that control as Threadpool Executor with the option to control the priority of all tasks.
+* The Task class that represent a Callable task that return a value and may throw an Exception, wite a priority enum.
+* The CustomExecutor that control as Threadpool Executor with the option to control the priority of all tasks.
+* The Adapter
+
+## **SOLID principles**
+
+The Adapter design pattern reflects the Dependency Inversion Principle in the provided code by decoupling the Task class from the CustomExecutor class and the priority queue.
+
+The CustomExecutor class uses the Adapter class to submit tasks to the priority queue. The Adapter class wraps the Task object and implements the compareTo method, which allows the task object to be added to the PriorityBlockingQueue and be sorted based on their priority. This way the CustomExecutor does not need to know the implementation details of how the Task class is implemented and it does not depend on it. The CustomExecutor only needs to know that the task submitted is of Adapter type, which implements the Comparable interface.
+
 ## Task
-This is a generic Task class that represents a task with a type that returns a result and may throw an exception. Each task has a priority used for scheduling, based on the TaskType enum. Has the option to be compared with the public int compareTo(@NotNull T o) method
+This is a generic Task class that represents a task with a type that returns a result and may throw an exception. Each task has a priority used for scheduling, based on the TaskType enum.
 ## CustomExecutor
 This is a custom thread pool class that defines methods for submitting tasks to a priority queue.
 The queue is a PriorityBlockingQueue object that stores the tasks in the priority queue. The queue is sorted according to the not natural ordering of the tasks or by the TaskType comparator.
