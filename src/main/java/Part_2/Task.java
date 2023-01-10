@@ -1,3 +1,5 @@
+package Part_2;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -6,7 +8,7 @@ import java.util.concurrent.FutureTask;
 
 /**
  * A generic task with a type that returns a result and may throw an exception.
- * Each task has a priority used for scheduling, based on the TaskType enum.
+ * Each task has a priority used for scheduling, based on the Part_2.TaskType enum.
  */
 public class Task<T> extends FutureTask<T> implements Callable<T>,Comparable<T>{
     private final Callable<T> task;

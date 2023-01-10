@@ -1,15 +1,17 @@
+package Part_2;
+
 public enum TaskType {
     COMPUTATIONAL(1){
         @Override
-        public String toString(){return "Computational Task";}
+        public String toString(){return "Computational Part_2.Task";}
     },
     IO(2){
         @Override
-        public String toString(){return "IO-Bound Task";}
+        public String toString(){return "IO-Bound Part_2.Task";}
     },
     OTHER(3){
         @Override
-        public String toString(){return "Unknown Task";}
+        public String toString(){return "Unknown Part_2.Task";}
     };
     private int typePriority;
     private TaskType(int priority){

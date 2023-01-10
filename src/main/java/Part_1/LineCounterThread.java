@@ -1,3 +1,5 @@
+package Part_1;
+
 /**
  * A thread class that counts the number of lines in a text file.
  */
@@ -9,7 +11,7 @@ public class LineCounterThread extends Thread {
     private int numLines;
 
     /**
-     * Constructs a new LineCounterThread for the given file name.
+     * Constructs a new Part_1.LineCounterThread for the given file name.
      *
      * @param fileName the file name to be processed by this thread
      */

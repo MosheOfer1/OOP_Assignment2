@@ -1,3 +1,5 @@
+package Part_1;
+
 import java.util.concurrent.Callable;
 /**
  * A callable class that counts the number of lines in a text file.
@@ -7,7 +9,7 @@ public class LineCounterCallable implements Callable<Integer> {
     private String fileName;
 
     /**
-     * Constructs a new LineCounterCallable for the given file name.
+     * Constructs a new Part_1.LineCounterCallable for the given file name.
      *
      * @param fileName the file name to be processed by this callable
      */

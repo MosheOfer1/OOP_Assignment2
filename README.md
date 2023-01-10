@@ -8,13 +8,13 @@ This part contains three methods for counting the number of lines in a set of te
 The getNumOfLines method processes the files sequentially, reading each file one by one and counting the number of lines in each file. It is the simplest and most straightforward of the three methods, but it may take a long time to process a large number of files.
 
 ## getNumOfLinesThreads
-The getNumOfLinesThreads method uses a separate thread for each file. It creates an array of LineCounterThread objects, one for each file, and starts each thread. It then waits for all the threads to complete by calling the join method on each of them. 
+The getNumOfLinesThreads method uses a separate thread for each file. It creates an array of Part_1.LineCounterThread objects, one for each file, and starts each thread. It then waits for all the threads to complete by calling the join method on each of them. 
 Finally, it adds up the number of lines counted by each thread and returns the total.
 
 Using separate threads allows the files to be processed concurrently, potentially speeding up the process. However, creating and starting a large number of threads can be resource-intensive, and the overhead of managing multiple threads may outweigh the benefits of concurrent processing.
 
 ## getNumOfLinesThreadPool
-The getNumOfLinesThreadPool method uses a thread pool to process the files concurrently. It creates a fixed-size thread pool with a thread for each file, and a separate LineCounterCallable for each file. It then invokes all the tasks and waits for them to complete. 
+The getNumOfLinesThreadPool method uses a thread pool to process the files concurrently. It creates a fixed-size thread pool with a thread for each file, and a separate Part_1.LineCounterCallable for each file. It then invokes all the tasks and waits for them to complete. 
 Finally, it shuts down the thread pool and waits for all the tasks to complete by calling the awaitTermination method. It then returns the total number of lines counted by all the tasks.
 
 Using a thread pool allows the files to be processed concurrently while minimizing the overhead of managing multiple threads. However, creating a thread pool requires some setup and may involve additional overhead compared to using separate threads.
@@ -25,7 +25,7 @@ Using a thread pool allows the files to be processed concurrently while minimizi
   <table style="width: 400px">
     <tr>
       <th>Class</th>
-      <td>LineCounterThread</td>
+      <td>Part_1.LineCounterThread</td>
     </tr>
     <tr>
       <th>Attributes</th>
@@ -40,7 +40,7 @@ Using a thread pool allows the files to be processed concurrently while minimizi
       <th>Methods</th>
       <td>
         <ul>
-          <li>+ LineCounterThread(String)</li>
+          <li>+ Part_1.LineCounterThread(String)</li>
           <li>+ void run()</li>
           <li>+ int getNumLines()</li>
         </ul>
@@ -51,7 +51,7 @@ Using a thread pool allows the files to be processed concurrently while minimizi
   <table style="width: 400px">
     <tr>
       <th>Class</th>
-      <td>LineCounterCallable</td>
+      <td>Part_1.LineCounterCallable</td>
     </tr>
     <tr>
       <th>Attributes</th>
@@ -65,7 +65,7 @@ Using a thread pool allows the files to be processed concurrently while minimizi
       <th>Methods</th>
       <td>
         <ul>
-          <li>+ LineCounterCallable(String)</li>
+          <li>+ Part_1.LineCounterCallable(String)</li>
           <li>+ Integer call()</li>
         </ul>
       </td>
@@ -140,10 +140,10 @@ The run times may vary depending on the resources available on the machine runni
 
 # OOP_Assignment2 Part 2 - ThreadPool
 In order to create an option to control the priority of tasks in a threadPool in java, we created 
-* The Task class that represent a Callable task that return a value and may throw an Exception, wite a priority enum.
-* the CustomExecutor that control as Threadpool Executor with the option to control the priority of all tasks.
-## Task
-This is a generic Task class that represents a task with a type that returns a result and may throw an exception. Each task has a priority used for scheduling, based on the TaskType enum. Has the option to be compared with the public int compareTo(@NotNull T o) method
-## CustomExecutor
+* The Part_2.Task class that represent a Callable task that return a value and may throw an Exception, wite a priority enum.
+* the Part_2.CustomExecutor that control as Threadpool Executor with the option to control the priority of all tasks.
+## Part_2.Task
+This is a generic Part_2.Task class that represents a task with a type that returns a result and may throw an exception. Each task has a priority used for scheduling, based on the Part_2.TaskType enum. Has the option to be compared with the public int compareTo(@NotNull T o) method
+## Part_2.CustomExecutor
 This is a custom thread pool class that defines methods for submitting tasks to a priority queue.
-The queue is a PriorityBlockingQueue object that stores the tasks in the priority queue. The queue is sorted according to the not natural ordering of the tasks or by the TaskType comparator.
+The queue is a PriorityBlockingQueue object that stores the tasks in the priority queue. The queue is sorted according to the not natural ordering of the tasks or by the Part_2.TaskType comparator.

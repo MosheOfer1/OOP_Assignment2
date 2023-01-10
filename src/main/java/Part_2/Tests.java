@@ -1,3 +1,5 @@
+package Part_2;
+
 import org.junit.Test;
 
 import java.util.concurrent.*;
@@ -49,19 +51,24 @@ public class Tests {
         logger.info(()->String.valueOf("Total Price = " + totalPrice));
         logger.info(()-> "Current maximum priority = " + customExecutor.getCurrentMax());
 
-        Future<String>[] stringFuture = new Future[1000];
-        for (int i = 0; i < stringFuture.length; i++) {
+        Future<?>[] stringFuture = new Future[1000];
+        for (int i = 0; i < stringFuture.length; i=i+2) {
             stringFuture[i] = customExecutor.submit(callable2, TaskType.IO);
+            stringFuture[i+1] = customExecutor.submit(task);
         }
-        for (Future<String> future : stringFuture) {
+        for (int i = 0; i < stringFuture.length; i=i+2) {
             String s = null;
+            int x = 0;
             try {
-                s = future.get();
+                s = (String) stringFuture[i].get();
+                x = (int) stringFuture[i+1].get();
             } catch (InterruptedException | ExecutionException e) {
                 throw new RuntimeException(e);
             }
             String finalS = s;
             logger.info(() -> finalS);
+            int finalX = x;
+            logger.info(() -> String.valueOf(finalX));
 
         }
         customExecutor.gracefullyTerminate();
