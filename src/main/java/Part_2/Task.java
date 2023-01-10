@@ -14,7 +14,7 @@ public class Task<T> implements Callable<T>{
 
     /**
      * Constructs a new prioritized task.
-     *
+     * Consider the case which (task is not instanceof Task<T>)
      * @param task the Callable representing the task
      */
     public Task(Callable<T> task) {
@@ -37,7 +37,7 @@ public class Task<T> implements Callable<T>{
     }
 
     public static Task<?> createTask(Callable<?> c, TaskType taskType) {
-        return new Task(c,taskType);
+        return new Task<>(c,taskType);
     }
 
     /**

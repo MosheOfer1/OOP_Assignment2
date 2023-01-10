@@ -2,9 +2,8 @@ package Part_2;
 
 import org.junit.Test;
 
-import java.util.Arrays;
+import java.util.Objects;
 import java.util.concurrent.*;
-
 import org.junit.platform.commons.logging.Logger;
 import org.junit.platform.commons.logging.LoggerFactory;
 
@@ -33,6 +32,7 @@ public class Tests {
             StringBuilder sb = new StringBuilder("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
             return sb.reverse().toString();
         };
+
         Callable<Integer> callable2 = ()-> {
             //simulating long task
             Thread.sleep(1000);
@@ -42,6 +42,7 @@ public class Tests {
             }
             return sum;
         };
+
         // Create an array to store the Future of the tasks in a const size
         Future<?>[] stringFuture = new Future[20];
         for (int i = 0; i < stringFuture.length; i++) {
@@ -53,12 +54,25 @@ public class Tests {
                 stringFuture[i] = customExecutor.submit(callable2, TaskType.COMPUTATIONAL);
         }
         //log the priority of each task in the queue
+        Object[] array = customExecutor.getQueue().toArray();
         for (int i = 0; i < customExecutor.getQueue().size(); i++) {
             int finalI = i;
-            logger.info(()-> "The "+ finalI +"t'h element in the queue has priority of "+((Adapter<?>)customExecutor.getQueue().toArray()[finalI]).getPriority());
+            Object[] finalArray1 = array;
+            logger.info(()-> "The "+ finalI +"t'h element in the queue has priority of "+((Adapter<?>) finalArray1[finalI]).getPriority());
+        }
+
+        // Sleep for 2 sec and check again the queue status
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException ignored) {
+        }
+        array = customExecutor.getQueue().toArray();
+        for (int i = 0; i < customExecutor.getQueue().size(); i++) {
+            int finalI = i;
+            Object[] finalArray = array;
+            logger.info(()-> "The "+ finalI +"t'h element in the queue after sleep, has priority of "+((Adapter<?>) finalArray[finalI]).getPriority());
         }
         customExecutor.gracefullyTerminate();
-
     }
 
     @Test
@@ -100,7 +114,7 @@ public class Tests {
             throw new RuntimeException(e);
         }
         logger.info(()-> "Reversed String = " + reversed);
-        logger.info(()->String.valueOf("Total Price = " + totalPrice));
+        logger.info(()-> String.valueOf("Total Price = " + totalPrice));
         logger.info(()-> "Current maximum priority = " + customExecutor.getCurrentMax());
 
         customExecutor.gracefullyTerminate();
