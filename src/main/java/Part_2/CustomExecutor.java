@@ -8,13 +8,13 @@ import java.util.concurrent.*;
  */
 public class CustomExecutor{
 
-    private final ThreadPoolExecutor executor;
+    private final ThreadPoolExecuterExtended executor;
     private final BlockingQueue queue = new PriorityBlockingQueue<>(11, Comparator.reverseOrder());
     private int max;
     public CustomExecutor() {
         this.max = 10;
         int processors = Runtime.getRuntime().availableProcessors();
-        this.executor = new ThreadPoolExecutor(processors/2,processors-1,
+        this.executor = new ThreadPoolExecuterExtended(processors/2,processors-1,
                 300,TimeUnit.MILLISECONDS, queue);
     }
     public <T> FutureTask<T> submit(Task<T> task){
@@ -22,6 +22,7 @@ public class CustomExecutor{
         if (this.max > task.getPriority())
             this.max = task.getPriority();
         executor.execute(adapter);
+
         return adapter;
     }
     public <T> FutureTask<T> submit(Callable<T> callable){
@@ -49,7 +50,9 @@ public class CustomExecutor{
     }
 
     public String getCurrentMax() {
-        return String.valueOf(this.max);
+        if (executor.getMaxTask() == null)
+            return "The Queue is empty";
+        return String.valueOf(((Adapter)executor.getMaxTask()).getPriority());
     }
 
 }

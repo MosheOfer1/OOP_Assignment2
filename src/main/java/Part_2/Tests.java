@@ -60,6 +60,7 @@ public class Tests {
             Object[] finalArray1 = array;
             logger.info(()-> "The "+ finalI +"t'h element in the queue has priority of "+((Adapter<?>) finalArray1[finalI]).getPriority());
         }
+        logger.info(()-> "Current maximum priority = " + customExecutor.getCurrentMax());
 
         // Sleep for 2 sec and check again the queue status
         try {
@@ -72,6 +73,8 @@ public class Tests {
             Object[] finalArray = array;
             logger.info(()-> "The "+ finalI +"t'h element in the queue after sleep, has priority of "+((Adapter<?>) finalArray[finalI]).getPriority());
         }
+        logger.info(()-> "Current maximum priority = " + customExecutor.getCurrentMax());
+
         customExecutor.gracefullyTerminate();
     }
 
