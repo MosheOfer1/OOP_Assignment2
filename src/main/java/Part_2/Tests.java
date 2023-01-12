@@ -49,6 +49,9 @@ public class Tests {
             // Insert the less important tasks first
             if (i <= stringFuture.length/2)
                 stringFuture[i] = customExecutor.submit(callable1, TaskType.OTHER);
+            if (i == 2) {
+                logger.info(()-> "At the beginning the first in the queue has priority of = " + customExecutor.getCurrentMax());
+            }
             // Insert the more important tasks in the end
             else
                 stringFuture[i] = customExecutor.submit(callable2, TaskType.COMPUTATIONAL);
@@ -76,6 +79,8 @@ public class Tests {
         logger.info(()-> "Current maximum priority = " + customExecutor.getCurrentMax());
 
         customExecutor.gracefullyTerminate();
+        logger.info(()-> "Current maximum priority = " + customExecutor.getCurrentMax());
+
     }
 
     @Test

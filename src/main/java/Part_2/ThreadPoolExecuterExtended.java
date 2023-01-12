@@ -14,11 +14,11 @@ public class ThreadPoolExecuterExtended extends ThreadPoolExecutor {
     }
 
     @Override
-    protected void afterExecute(Runnable r, Throwable t) {
-        super.afterExecute(r, t);
+    protected void beforeExecute(Thread t, Runnable r) {
+        super.beforeExecute(t, r);
         this.maxTask = getQueue().peek();
-        //System.out.println(maxTask);
     }
+
 
     public Runnable getMaxTask() {
         return maxTask;
