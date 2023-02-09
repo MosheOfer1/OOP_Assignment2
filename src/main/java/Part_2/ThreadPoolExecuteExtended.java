@@ -6,17 +6,19 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-public class ThreadPoolExecuterExtended extends ThreadPoolExecutor {
-    private Runnable maxTask;
+public class ThreadPoolExecuteExtended extends ThreadPoolExecutor {
+    private volatile Runnable maxTask;
 
-    public ThreadPoolExecuterExtended(int corePoolSize, int maximumPoolSize, long keepAliveTime, @NotNull TimeUnit unit, @NotNull BlockingQueue<Runnable> workQueue) {
+    public ThreadPoolExecuteExtended(int corePoolSize, int maximumPoolSize, long keepAliveTime, @NotNull TimeUnit unit, @NotNull BlockingQueue<Runnable> workQueue) {
         super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue);
     }
 
     @Override
     protected void beforeExecute(Thread t, Runnable r) {
         super.beforeExecute(t, r);
-        this.maxTask = getQueue().peek();
+        synchronized (ThreadPoolExecuteExtended.class){
+            this.maxTask = getQueue().peek();
+        }
     }
 
 

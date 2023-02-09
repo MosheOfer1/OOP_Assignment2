@@ -14,7 +14,7 @@ public class Ex2_1 {
      */
     public static void main(String[] args){
         // The file names to be compared from createTextFiles()
-        String[] fileNames = createTextFiles(100,2,1500);
+        String[] fileNames = createTextFiles(50000,128,512);
         long startTime, endTime;
 
         // Measure the run time of getNumOfLines

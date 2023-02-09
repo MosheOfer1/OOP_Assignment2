@@ -47,10 +47,11 @@ public class Tests {
         Future<?>[] stringFuture = new Future[20];
         for (int i = 0; i < stringFuture.length; i++) {
             // Insert the less important tasks first
-            if (i <= stringFuture.length/2)
+            if (i <= stringFuture.length/2) {
                 stringFuture[i] = customExecutor.submit(callable1, TaskType.OTHER);
-            if (i == 2) {
-                logger.info(()-> "At the beginning the first in the queue has priority of = " + customExecutor.getCurrentMax());
+                if (i == 2) {
+                    logger.info(() -> "At the beginning the first in the queue has priority of = " + customExecutor.getCurrentMax());
+                }
             }
             // Insert the more important tasks in the end
             else
@@ -65,9 +66,9 @@ public class Tests {
         }
         logger.info(()-> "Current maximum priority = " + customExecutor.getCurrentMax());
 
-        // Sleep for 2 sec and check again the queue status
+        // Sleep for 3 sec and check again the queue status
         try {
-            Thread.sleep(2000);
+            Thread.sleep(3000);
         } catch (InterruptedException ignored) {
         }
         array = customExecutor.getQueue().toArray();
